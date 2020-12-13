@@ -1,7 +1,7 @@
-# 整体布局优化
+# 登陆界面
 
-利用模块化的思想，将home.vue进行拆分为components/MenuList.vue和
-SliderNav.vue
+## 小知识点
+```git status```:查看提交状态
+### vscode快捷键
 
-其中collapsed用于导航的缩放功能，存储在vuex中。
-
+选中所有匹配项：command + F2
