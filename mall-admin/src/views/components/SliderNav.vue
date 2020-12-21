@@ -14,7 +14,7 @@
     </div>
     <ul class="user-info">
       <li>
-        欢迎，TSCN
+        欢迎,{{ this.$store.state.user.name }}
         <a-icon type="down" />
       </li>
       <li>退出登录</li>

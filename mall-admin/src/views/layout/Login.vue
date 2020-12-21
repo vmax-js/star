@@ -57,6 +57,7 @@ export default {
         if (valid) {
           api.login(this.loginFrom).then((res) => {
             //   成功 跳转到Home页面
+            this.$store.dispatch('userInfo', res);
             this.$router.push({
               name: 'Home',
             });
@@ -79,6 +80,6 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import url("~@/assets/login.less");
 </style>

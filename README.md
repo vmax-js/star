@@ -1,7 +1,5 @@
-# 登陆界面
+# 登陆界面信息的数据交互
 
-## 小知识点
-```git status```:查看提交状态
-### vscode快捷键
+## 设置cookie的库
 
-选中所有匹配项：command + F2
+```npm i js-cookie```
