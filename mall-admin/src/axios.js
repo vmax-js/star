@@ -6,7 +6,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  console.log(config);
+  console.log('请求配置', config);
   return config;
 },
 (err) => Promise.reject(err));

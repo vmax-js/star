@@ -4,12 +4,22 @@
       <a-form-model-item has-feedback label="邮箱" prop="email">
         <a-input v-model="loginFrom.email" type="email" autocomplete="off" />
       </a-form-model-item>
-      <a-form-model-item has-feedback label="密码" prop="pass">
-        <a-input v-model="loginFrom.pass" type="password" />
+      <a-form-model-item has-feedback label="密码" prop="password">
+        <a-input v-model="loginFrom.password" type="password" />
       </a-form-model-item>
-      <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
+      <a-form-model-item :wrapper-col="{ span: 24, offset: 4 }">
         <a-button type="primary" @click="submitForm('loginFrom')">登录</a-button>
-        <a-button style="margin-left: 10px" @click="resetForm('loginFrom')">重置</a-button>
+        <!-- <a-button style="margin-left: 10px" @click="resetForm('loginFrom')">重置</a-button> -->
+        <router-link
+          :to="{ path:'/register' }"
+          type="button"
+          style="margin-left:10px;letter-spacing:4px;"
+          class="ant-btn ant-btn-primary"
+          tag="button"
+        >注册</router-link>
+        <router-link :to="{ path:'/findBack' }" style="margin-left:10px;">
+          <a-button type="primary" shape="circle" icon="search" />
+        </router-link>
       </a-form-model-item>
     </a-form-model>
   </div>
@@ -37,12 +47,12 @@ export default {
     };
     return {
       loginFrom: {
-        pass: '',
+        password: '',
         email: '',
       },
       rules: {
         //   trigger 触发
-        pass: [{ validator: validatePass, trigger: 'change' }],
+        password: [{ validator: validatePass, trigger: 'change' }],
         email: [{ validator: checkEmail, trigger: 'change' }],
       },
       layout: {
@@ -55,18 +65,21 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          api.login(this.loginFrom).then((res) => {
-            //   成功 跳转到Home页面
-            this.$store.dispatch('userInfo', res);
-            this.$router.push({
-              name: 'Home',
+          api
+            .login(this.loginFrom)
+            .then((res) => {
+              //   成功 跳转到Home页面
+              this.$store.dispatch('setUserInfo', res);
+              this.$router.push({
+                name: 'Home',
+              });
+              console.log('登录请求结果', res);
+            })
+            .catch((err) => {
+              //   $messsage是ant-design里面的
+              // 错误信息提示
+              this.$message.error(err);
             });
-            console.log(res);
-          }).catch((err) => {
-            //   $messsage是ant-design里面的
-            // 错误信息提示
-            this.$message.error(err);
-          });
           return true;
         }
         console.log('error submit!!');

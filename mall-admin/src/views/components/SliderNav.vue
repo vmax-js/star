@@ -14,10 +14,10 @@
     </div>
     <ul class="user-info">
       <li>
-        欢迎,{{ this.$store.state.user.name }}
+        欢迎,{{ this.$store.state.user.username }}
         <a-icon type="down" />
       </li>
-      <li>退出登录</li>
+      <li @click="logOut">退出登录</li>
     </ul>
   </div>
 </template>
@@ -32,6 +32,13 @@ export default {
     toggleCollapsed() {
       // this.collapsed = !this.collapsed;
       this.$store.dispatch('changeCollapsed');
+    },
+    logOut() {
+      this.$store.dispatch('loginOut');
+      // 跳转到登录接界面
+      this.$router.push({
+        name: 'Login',
+      });
     },
   },
 };

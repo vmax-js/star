@@ -24,7 +24,7 @@ export default new Vuex.Store({
     },
     loginOut(state) {
       state.user = {
-        name: '',
+        username: '',
         appkey: '',
         email: '',
         role: '',
