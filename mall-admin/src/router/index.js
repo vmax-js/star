@@ -126,23 +126,25 @@ router.beforeEach((to, from, next) => {
         // 存储到vuex 这是一个异步的 如果直接输入url会显示空白页面
         store.dispatch('changeMenuRoutes', routes.concat(roleRouter)).then(() => {
           router.addRoutes(roleRouter);
-          next();
+           next();
         });
         isAddRouter = true;
       }
       return next();
     }
+    
+    if (to.path === '/register') {
+      return next();
+    }
+    if (to.path === '/findBack') {
+      return next();
+    }
+    if (to.path === '/login') {
+      return next();
+    }
     return next('/login');
   }
-  if (to.path === '/register') {
-    return next();
-  }
-  if (to.path === '/findBack') {
-    return next();
-  }
-  if (to.path === '/login') {
-    return next();
-  }
+  
   return next();
 });
 export default router;
