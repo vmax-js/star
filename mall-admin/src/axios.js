@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from '@/store/index';
 
 const instance = axios.create({
   // 基础路径
@@ -7,6 +8,16 @@ const instance = axios.create({
 
 instance.interceptors.request.use((config) => {
   console.log('请求配置', config);
+  if (!config.url.includes('passport')) {
+    const config1 = {
+      ...config,
+      params: {
+        ...config.params,
+        appkey: store.state.user.appkey,
+      },
+    };
+    return config1;
+  }
   return config;
 },
 (err) => Promise.reject(err));
