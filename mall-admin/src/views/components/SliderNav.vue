@@ -23,7 +23,7 @@
     <ul class="user-info">
       <li>
         欢迎,{{ this.$store.state.user.username }}
-        <a-icon type="down" />
+        <a-icon type="right" />
       </li>
       <li @click="logOut">退出登录</li>
     </ul>
@@ -56,3 +56,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.user-info {
+  z-index: 10;
+}
+</style>
