@@ -15,7 +15,7 @@
           style="width: 200px"
           @change="handleChange"
         >
-          <a-select-option v-for="c in categoryList"
+          <a-select-option v-for="c in data"
             :value="c.id" :key="c.id">{{ c.name }}</a-select-option>
         </a-select>
       </a-form-item>
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import api from '@/api/search';
 
 export default {
   data() {
@@ -36,8 +35,11 @@ export default {
         searchWord: '',
         category: '',
       },
-      categoryList: [],
+
     };
+  },
+  props: {
+    data: Array,
   },
   methods: {
     handleSubmit() {
@@ -51,10 +53,6 @@ export default {
     },
   },
   created() {
-    api.getCategory(this.searchForm).then((res) => {
-    //   console.log('---', res);
-      this.categoryList = res.data;
-    });
   },
 };
 </script>
