@@ -9,9 +9,13 @@ Vue.use(VueRouter);
 const ayncRoutesMap = [{
   path: '/product',
   name: 'Product',
-  component: () => import('@/views/pages/Product.vue'),
+  component: () => import('@/views/layout/Home.vue'),
   meta: {
     title: '商品',
+    // menu中是否显示
+    hidden: false,
+    // 图标
+    icon: 'shop',
   },
   children: [{
     path: 'list',
@@ -19,6 +23,8 @@ const ayncRoutesMap = [{
     component: () => import('@/views/pages/ProductList.vue'),
     meta: {
       title: '商品列表',
+      hidden: false,
+      icon: 'unordered-list',
     },
   }, {
     path: 'add',
@@ -26,6 +32,8 @@ const ayncRoutesMap = [{
     component: () => import('@/views/pages/ProductAdd.vue'),
     meta: {
       title: '添加商品',
+      hidden: false,
+      icon: 'file-add',
     },
   }, {
     path: 'category',
@@ -33,17 +41,20 @@ const ayncRoutesMap = [{
     component: () => import('@/views/pages/Category'),
     meta: {
       title: '类目管理',
+      hidden: false,
+      icon: 'appstore',
     },
   }],
 
 }];
 const routes = [{
-  alias: '/',
-  path: '/home',
+  path: '/',
   name: 'Home',
   component: () => import('@/views/layout/Home.vue'),
   meta: {
     title: '首页',
+    hidden: false,
+    icon: 'home',
   },
   children: [{
     path: 'index',
@@ -51,6 +62,8 @@ const routes = [{
     component: () => import('@/views/pages/Index.vue'),
     meta: {
       title: '统计',
+      hidden: false,
+      icon: 'schedule',
     },
   }],
 },
@@ -60,6 +73,7 @@ const routes = [{
   component: Login,
   meta: {
     title: '登录',
+    hidden: true,
   },
 },
 {
@@ -68,6 +82,7 @@ const routes = [{
   component: () => import('@/views/layout/Register'),
   meta: {
     title: '注册',
+    hidden: true,
   },
 },
 {
@@ -76,6 +91,7 @@ const routes = [{
   component: () => import('@/views/layout/FindBack'),
   meta: {
     title: '找回密码',
+    hidden: true,
   },
 },
   // {
@@ -102,13 +118,16 @@ router.beforeEach((to, from, next) => {
       console.log('根据角色获取到的路由配置', roleRouter);
       // 添加到公共的routers里面
       if (!isAddRouter) {
-        // 手动添加
+        // 手动添加 会多添加一个
         // roleRouter.forEach((item) => {
         //   router.options.routes.push(item);
         // });
-        router.addRoutes(roleRouter);
-        console.log(router);
-        store.dispatch('changeMenuRoutes', routes.concat(roleRouter));
+        // console.log(router);
+        // 存储到vuex 这是一个异步的 如果直接输入url会显示空白页面
+        store.dispatch('changeMenuRoutes', routes.concat(roleRouter)).then(() => {
+          router.addRoutes(roleRouter);
+          next();
+        });
         isAddRouter = true;
       }
       return next();
