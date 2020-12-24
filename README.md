@@ -1,5 +1,5 @@
-# 登陆界面信息的数据交互
+# 统计页面
 
-## 设置cookie的库
+## echarts的vue版 v-charts
 
-```npm i js-cookie```
+https://v-charts.js.org/
