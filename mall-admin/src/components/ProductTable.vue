@@ -60,9 +60,9 @@ const columns = [
     title: '上架状态',
     dataIndex: 'status',
     key: 'status',
-    customRender(text, record) {
-      return record.status === 1 ? '上架' : '下架';
-    },
+    customRender:function(text,record){
+      return record.status === 1 ? '上架':'下架'; 
+    }
   },
   {
     title: '操作',
