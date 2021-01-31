@@ -17,34 +17,47 @@ const ayncRoutesMap = [{
     // 图标
     icon: 'shop',
   },
-  children: [{
-    path: 'list',
-    name: 'ProductList',
-    component: () => import('@/views/pages/ProductList.vue'),
-    meta: {
-      title: '商品列表',
-      hidden: false,
-      icon: 'unordered-list',
+  children: [
+    {
+      path: 'list',
+      name: 'ProductList',
+      component: () => import('@/views/pages/ProductList.vue'),
+      meta: {
+        title: '商品列表',
+        hidden: false,
+        icon: 'unordered-list',
+      },
+    }, {
+      path: 'add',
+      name: 'ProductAdd',
+      component: () => import('@/views/pages/ProductAdd.vue'),
+      meta: {
+        title: '添加商品',
+        hidden: false,
+        icon: 'file-add',
+      },
     },
-  }, {
-    path: 'add',
-    name: 'ProductAdd',
-    component: () => import('@/views/pages/ProductAdd.vue'),
-    meta: {
-      title: '添加商品',
-      hidden: false,
-      icon: 'file-add',
+    {
+      path: 'edit/:id',
+      name: 'ProductEdit',
+      component: () => import('@/views/pages/ProductEdit.vue'),
+      meta: {
+        title: '编辑商品',
+        hidden: true,
+        icon: 'edit',
+      },
     },
-  }, {
-    path: 'category',
-    name: 'Category',
-    component: () => import('@/views/pages/Category'),
-    meta: {
-      title: '类目管理',
-      hidden: false,
-      icon: 'appstore',
+    {
+      path: 'category',
+      name: 'Category',
+      component: () => import('@/views/pages/Category'),
+      meta: {
+        title: '类目管理',
+        hidden: false,
+        icon: 'appstore',
+      },
     },
-  }],
+  ],
 
 }];
 const routes = [{

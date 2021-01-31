@@ -58,7 +58,4 @@ export default {
 </script>
 
 <style scoped>
-.user-info {
-  z-index: 10;
-}
 </style>

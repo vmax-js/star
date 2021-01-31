@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <menu-list></menu-list>
+    <menu-list :key="key"></menu-list>
     <div :class="{'main-app':true,'menu-unfold':$store.state.collapsed}">
       <slider-nav></slider-nav>
       <router-view></router-view>
@@ -17,7 +17,13 @@ export default {
   data() {
     return {
       // collapsed: false
+      key: new Date().getTime(),
     };
+  },
+  watch: {
+    $route() {
+      this.key = new Date().getTime();
+    },
   },
   components: {
     MenuList,

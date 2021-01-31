@@ -3,11 +3,16 @@
     <div class="product-search">
       <search @submit="searchSubmit" :data="categoryList" />
     </div>
+    <a-button type="primary" class="search-add-btn">
+        <router-link :to="{name:'ProductAdd'}">添加商品</router-link>
+    </a-button>
     <div class="product-table">
       <product-table
         :data="tableData"
         :pagination="page"
         @change="changePage"
+        @edit='editProduct'
+        @remove='removeProduct'
       ></product-table>
     </div>
   </div>
@@ -49,6 +54,7 @@ export default {
     searchSubmit(form) {
       //   console.log("---", form);
       this.searchForm = form;
+      this.getTableData();
     },
     getTableData() {
       api
@@ -71,6 +77,46 @@ export default {
       this.page = page;
       this.getTableData();
     },
+    editProduct(record) {
+      this.$router.push({
+        name: 'ProductEdit',
+        params: {
+          id: record.id,
+        },
+      });
+    },
+    removeProduct(record) {
+      this.$confirm({
+        title: '确实删除',
+        content: () => <div style='color:red;'>{`要删除标题为：${record.title}的商品吗？`}</div>,
+
+        onOk: () => {
+          // console.log('OK');
+          api.remove({
+            id: record.id,
+          }).then(() => {
+            // console.log(res);
+            // 确认删除更新页面
+            this.getTableData();
+          });
+        },
+        onCancel() {
+          console.log('cancel');
+        },
+        class: 'confirm-box',
+      });
+    },
   },
 };
 </script>
+<style lang="less" scoped>
+.product-list{
+    position: relative;
+    .search-add-btn{
+        position: absolute;
+        top: 15px;
+        right: 40px;
+
+    }
+}
+</style>
