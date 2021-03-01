@@ -40,7 +40,7 @@ const ayncRoutesMap = [{
     {
       path: 'edit/:id',
       name: 'ProductEdit',
-      component: () => import('@/views/pages/ProductEdit.vue'),
+      component: () => import('@/views/pages/ProductAdd.vue'),
       meta: {
         title: '编辑商品',
         hidden: true,
